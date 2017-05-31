@@ -9,14 +9,14 @@ module.exports = {
         app:[
             // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
             // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            './src/main' // Your appʼs entry point
+            './src/index.js' // Your appʼs entry point
         ]
     },
 
     output: {
-        path: 'dist',
+        path: path.join(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        publicPath: "/assets/",
+        publicPath: "/",
         sourceMapFilename: '[name].map'
     },
 
@@ -26,6 +26,7 @@ module.exports = {
         host: 'localhost',
         historyApiFallback: true,
         noInfo: false,
+        contentBase: "./dist",
         stats: 'minimal',
         publicPath: "/assets/"
     },
@@ -44,7 +45,7 @@ module.exports = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin(),
+        //new HtmlWebpackPlugin({inject:true,template:"src/layouts/default.html"}),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
     ],
