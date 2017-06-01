@@ -25,7 +25,8 @@ module.exports = {
     },
 
     module: {
-        rules: [{
+        rules: [
+        {
             test: /\.scss$/,
             use: extractSass.extract({
                 use: [{
@@ -36,24 +37,19 @@ module.exports = {
                 // use style-loader in development
                 fallback: "style-loader"
             })
+        },{
+            test: /\.js$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env']
+                }
+            }
         }]
     },
 
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     inject:true,
-        //     filename:"default.html",
-        //     template:"./src/layouts/default.html",
-        //     // "assets": {
-        //     //     "client" : "client.[hash].js",
-        //     //     "style"  : "style.[hash].css",
-        //     // }
-        // }),
-        new webpack.DefinePlugin({
-           'process.env': {
-               'NAME': "main"
-           }
-        }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false

@@ -1,3 +1,4 @@
+//https://gist.github.com/demisx/beef93591edc1521330a
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var webpack = require("webpack");
@@ -185,7 +186,7 @@ gulp.task('press:production', function() {
 var bundler = webpack(webpack_config_dev);
 
 
-//
+//http://jsramblings.com/2016/07/16/hot-reloading-gulp-webpack-browsersync.html
 gulp.task('server', function(cb) {
   browserSync({
     server: {
