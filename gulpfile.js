@@ -218,12 +218,12 @@ gulp.task('watch:code', function () {
     ], gulp.series('press'));
 });
 
-gulp.task('watch:scripts', function() {
-    gulp.watch([
-        paths.scripts,
-        paths.sass
-    ], gulp.series('webpack'));
-});
+// gulp.task('watch:scripts', function() {
+//     gulp.watch([
+//         paths.scripts,
+//         paths.sass
+//     ], gulp.series('webpack'));
+// });
 
 
 //gulp.task('build', gulp.parallel('html', 'sass', 'json', 'images', 'sass', 'less'));
