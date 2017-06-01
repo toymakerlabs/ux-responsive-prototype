@@ -18,7 +18,7 @@ module.exports = {
             //'webpack/hot/dev-server',
             'webpack-hot-middleware/client',
             'tether',
-            //'bootstrap-loader',
+            'bootstrap-loader',
         //    bootstrapEntryPoints.dev,
             './src/index.js' // Your appʼs entry point
         ]
@@ -46,21 +46,29 @@ module.exports = {
         rules: [
             {  test: /\.css/,
               use: [
-                { loader: 'style-loader', options: { sourceMap: true } },
+                { loader: 'style-loader', options: { sourceMap: false } },
                 { loader: 'css-loader', options: { sourceMap: true } },
-                { loader: 'postcss-loader', options: { sourceMap: true } },
+                //{ loader: 'postcss-loader', options: { sourceMap: false,plugins: () => [autoprefixer] } },
                 { loader: 'sass-loader', options: { sourceMap: false } }
               ]
             },
+            {
+              test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+              use: 'url-loader?limit=10000',
+            },
+            {
+              test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+              use: 'file-loader',
+            },
             { test: /\.scss$/,
               use: [
-                { loader: 'style-loader', options: { sourceMap: true } },
+                { loader: 'style-loader', options: { sourceMap: false } },
                 { loader: 'css-loader', options: { sourceMap: true } },
-                { loader: 'postcss-loader', options: { sourceMap: true } },
+                //{ loader: 'postcss-loader', options: { sourceMap: false,plugins: () => [autoprefixer] } },
                 { loader: 'sass-loader', options: { sourceMap: false } }
               ]
-             },
-            { test: /\.js$/,
+             },{
+            test: /\.js$/,
             exclude: /(node_modules)/,
             use: {
                 loader: 'babel-loader',
@@ -77,8 +85,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.LoaderOptionsPlugin({
-            postcss: [autoprefixer],
-
+            postcss: [autoprefixer('last 2 versions') ],
         }),
         new webpack.ProvidePlugin({
             $: "jquery",

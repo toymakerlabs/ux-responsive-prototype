@@ -10,7 +10,7 @@ module.exports = {
         main:[
             // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
             // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            //'bootstrap-loader/extractStyles',
+            'bootstrap-loader/extractStyles',
             './src/index.js' // Your appʼs entry point
         ]
     },
@@ -23,7 +23,16 @@ module.exports = {
     },
 
     module: {
-        rules: [{
+        rules: [
+            {
+              test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+              use: 'url-loader?limit=10000',
+            },
+            {
+              test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+              use: 'file-loader',
+            },
+            {
             test: /\.css$/, use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
             use: [
