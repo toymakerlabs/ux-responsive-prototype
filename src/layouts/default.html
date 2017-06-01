@@ -9,7 +9,11 @@
     <title>test</title>
     <meta name="description" content="Hasf">
     <!-- <script src="http://localhost:8000/main.bundle.js"></script> -->
-
+    {{#if globals.production}}
+        <h1>prod</h1>
+      {{else}}
+        <h1>notprod</h1>
+      {{/if}}
   </head>
   <body>
     {{> header}}

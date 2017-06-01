@@ -96,10 +96,18 @@ var paths = {
 }
 
 
+gulp.task('set-env-dev', function() {
+    return process.env.NODE_ENV = 'development';
+});
 
+gulp.task('set-env-prod', function() {
+    return process.env.NODE_ENV = 'production';
+});
 gulp.task('clean', function (cb) {
   return del(paths.dirs.dist, cb);
 });
+
+
 
 gulp.task("webpack", function(cb) {
 	// modify some webpack config options
@@ -127,20 +135,7 @@ gulp.task("webpack", function(cb) {
 
 
 
-gulp.task('press:production', function() {
-    console.log("press")
-    panini.refresh();
-    return gulp.src('src/pages/**/*.html')
-        .pipe(panini({
-            root: 'src/pages',
-            layouts: 'bin/',
-            partials: 'src/partials/',
-            helpers: 'src/helpers/',
-            data: 'src/data/'
-    }))
-    .pipe(gulp.dest('dist'))
-    .on('finish', browserSync.reload);
-});
+
 
 gulp.task('copybin',function(){
     var sources = [ 'bin/main.bundle.js', 'bin/main.css' ];
@@ -150,6 +145,21 @@ gulp.task('copybin',function(){
 })
 
 gulp.task('press', function() {
+    console.log("press")
+    panini.refresh();
+    return gulp.src('src/pages/**/*.html')
+        .pipe(panini({
+            root: 'src/pages',
+            layouts: 'src/layouts/',
+            partials: 'src/partials/',
+            helpers: 'src/helpers/',
+            data: 'src/data/'
+    }))
+    .pipe(gulp.dest('dist'))
+    .on('finish', browserSync.reload);
+});
+
+gulp.task('press:production', function() {
     console.log("press")
     panini.refresh();
     return gulp.src('src/pages/**/*.html')
