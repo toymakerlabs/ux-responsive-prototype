@@ -10,7 +10,7 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry: {
-        app:[
+        main:[
             // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
             // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
             './src/index.js' // Your appʼs entry point
@@ -18,9 +18,9 @@ module.exports = {
     },
 
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'bin'),
         filename: '[name].bundle.js',
-        publicPath: "/static/",
+        publicPath: "",
         sourceMapFilename: '[name].map'
     },
 
@@ -40,6 +40,15 @@ module.exports = {
     },
 
     plugins: [
+        new HtmlWebpackPlugin({
+            inject:true,
+            filename:"default.html",
+            template:"./src/layouts/default.html",
+            // "assets": {
+            //     "client" : "client.[hash].js",
+            //     "style"  : "style.[hash].css",
+            // }
+        }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false

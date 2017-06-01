@@ -1,14 +1,15 @@
-
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
-var webpackConfig = require("./webpack.dev.config.js");
+var webpack_config_dev = require("./webpack.dev.config.js");
+var webpack_config_prod = require("./webpack.prod.config.js");
 var panini = require('panini');
 var browserSync  = require('browser-sync');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-var bundler = webpack(webpackConfig);
+var gulpCopy = require('gulp-copy');
+var del = require('del');
 
 var PORT = 8000;
 // The development server (the recommended option for development)
@@ -96,31 +97,57 @@ var paths = {
 
 
 
-// gulp.task("webpack", function(cb) {
-// 	// modify some webpack config options
-// 	var myConfig = Object.create(webpackConfig);
-// 	// myConfig.plugins = myConfig.plugins.concat(
-// 	// 	new webpack.DefinePlugin({
-// 	// 		"process.env": {
-// 	// 			// This has effect on the react lib size
-// 	// 			"NODE_ENV": JSON.stringify("production")
-// 	// 		}
-// 	// 	}),
-// 	// 	new webpack.optimize.DedupePlugin(),
-// 	// 	new webpack.optimize.UglifyJsPlugin()
-// 	// );
-//
-// 	// run webpack
-// 	webpack(myConfig, function(err, stats) {
-// 		if(err) throw new gutil.PluginError("webpack:build", err);
-// 		gutil.log("[webpack:build]", stats.toString({
-// 			colors: true
-// 		}));
-// 		cb();
-// 	});
-// });
+gulp.task('clean', function (cb) {
+  return del(paths.dirs.dist, cb);
+});
+
+gulp.task("webpack", function(cb) {
+	// modify some webpack config options
+	var prod_config = Object.create(webpack_config_prod);
+	// myConfig.plugins = myConfig.plugins.concat(
+	// 	new webpack.DefinePlugin({
+	// 		"process.env": {
+	// 			// This has effect on the react lib size
+	// 			"NODE_ENV": JSON.stringify("production")
+	// 		}
+	// 	}),
+	// 	new webpack.optimize.DedupePlugin(),
+	// 	new webpack.optimize.UglifyJsPlugin()
+	// );
+
+	// run webpack
+	webpack(prod_config, function(err, stats) {
+		if(err) throw new gutil.PluginError("webpack", err);
+		gutil.log("[webpack]", stats.toString({
+			colors: true
+		}));
+		cb();
+	});
+});
 
 
+
+gulp.task('press:production', function() {
+    console.log("press")
+    panini.refresh();
+    return gulp.src('src/pages/**/*.html')
+        .pipe(panini({
+            root: 'src/pages',
+            layouts: 'bin/',
+            partials: 'src/partials/',
+            helpers: 'src/helpers/',
+            data: 'src/data/'
+    }))
+    .pipe(gulp.dest('dist'))
+    .on('finish', browserSync.reload);
+});
+
+gulp.task('copybin',function(){
+    var sources = [ 'bin/main.bundle.js', 'bin/main.css' ];
+    var destination = 'dist/';
+
+    return gulp.src(sources).pipe(gulp.dest(paths.dirs.dist));
+})
 
 gulp.task('press', function() {
     console.log("press")
@@ -128,7 +155,7 @@ gulp.task('press', function() {
     return gulp.src('src/pages/**/*.html')
         .pipe(panini({
             root: 'src/pages',
-            layouts: 'src/layouts/',
+            layouts: 'bin/',
             partials: 'src/partials/',
             helpers: 'src/helpers/',
             data: 'src/data/'
@@ -152,11 +179,11 @@ gulp.task('server', function(cb) {
     server: {
       baseDir: paths.dirs.dist,
       middleware: [
-          webpackDevMiddleware(bundler, {
-              publicPath: webpackConfig.output.publicPath,
+          webpackDevMiddleware(webpack(webpack_config_dev), {
+              publicPath: webpack_config_dev.output.publicPath,
               stats: { colors: true }
           }),
-          webpackHotMiddleware(bundler)
+          webpackHotMiddleware(webpack(webpack_config_dev))
           ]
       },
     port: 8000,
@@ -190,11 +217,11 @@ gulp.task('watch:scripts', function() {
 //gulp.task('build', gulp.parallel('html', 'sass', 'json', 'images', 'sass', 'less'));
 gulp.task('build', gulp.parallel('press'));
 
-
 gulp.task('watch', gulp.parallel('watch:code'));
 
-
 gulp.task('develop', gulp.series('server', 'build', 'watch'));
+
+gulp.task('production', gulp.series('clean','webpack', 'press:production','copybin'));
 
 
 
