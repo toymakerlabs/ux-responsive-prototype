@@ -4,8 +4,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
+    filename: "[name].css",
+    //disable: process.env.NODE_ENV === "development"
 });
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].bundle.js',
-        publicPath: "/static",
+        publicPath: "/static/",
         sourceMapFilename: '[name].map'
     },
 
@@ -40,7 +40,6 @@ module.exports = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin(),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false

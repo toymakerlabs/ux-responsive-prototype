@@ -6,6 +6,9 @@ var WebpackDevServer = require("webpack-dev-server");
 var webpackConfig = require("./webpack.dev.config.js");
 var panini = require('panini');
 var browserSync  = require('browser-sync');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var bundler = webpack(webpackConfig);
 
 var PORT = 8000;
 // The development server (the recommended option for development)
@@ -66,63 +69,96 @@ var PORT = 8000;
 // });
 
 //https://stackoverflow.com/questions/34371029/cannot-start-webpack-dev-server-with-gulp
-gulp.task('webpack-dev-server', function (c) {
-    var myConfig = Object.create(webpackConfig);
-
-    //myConfig.devtool = 'eval';
-    //myConfig.debug = true;
-
-    // Start a webpack-dev-server
-    new WebpackDevServer(webpack(myConfig), {
-        contentBase: "./dist",
-        stats: {
-            colors: true
-        }
-    }).listen(myConfig.devServer.port, 'localhost', function (err) {
-        if (err) {
-            throw new gutil.PluginError('webpack-dev-server', err);
-        }
-        gutil.log('[webpack-dev-server]', 'http://localhost:7777/index.html');
-    });
-});
+// gulp.task('webpack-dev-server', function (c) {
+//     var myConfig = Object.create(webpackConfig);
+//
+//     //myConfig.devtool = 'eval';
+//     //myConfig.debug = true;
+//
+//     // Start a webpack-dev-server
+//     new WebpackDevServer(webpack(myConfig)).listen(myConfig.devServer.port, 'localhost', function (err) {
+//         if (err) {
+//             throw new gutil.PluginError('webpack-dev-server', err);
+//         }
+//         gutil.log('[webpack-dev-server]', 'http://localhost:7777/index.html');
+//     });
+// });
 
 
 
 
 var paths = {
-  html: ['src/pages/**/*.html'],
-  dirs: { build:'dist/' }
+  html: ['src/pages/**/*.html','src/{layouts,partials,helpers,data}/**/*'],
+  dirs: { dist:'dist/' },
+  scripts:'src/**/*.js',
+  sass: 'src/**/*.scss',
 }
+
+
+
+// gulp.task("webpack", function(cb) {
+// 	// modify some webpack config options
+// 	var myConfig = Object.create(webpackConfig);
+// 	// myConfig.plugins = myConfig.plugins.concat(
+// 	// 	new webpack.DefinePlugin({
+// 	// 		"process.env": {
+// 	// 			// This has effect on the react lib size
+// 	// 			"NODE_ENV": JSON.stringify("production")
+// 	// 		}
+// 	// 	}),
+// 	// 	new webpack.optimize.DedupePlugin(),
+// 	// 	new webpack.optimize.UglifyJsPlugin()
+// 	// );
+//
+// 	// run webpack
+// 	webpack(myConfig, function(err, stats) {
+// 		if(err) throw new gutil.PluginError("webpack:build", err);
+// 		gutil.log("[webpack:build]", stats.toString({
+// 			colors: true
+// 		}));
+// 		cb();
+// 	});
+// });
+
+
 
 gulp.task('press', function() {
     console.log("press")
-  return gulp.src(paths.html)
-    .pipe(panini({
-      root: 'src/pages/',
-      layouts: 'src/layouts/',
-      partials: 'src/partials/',
-      helpers: 'src/helpers/',
-      data: 'src/data/'
+    panini.refresh();
+    return gulp.src('src/pages/**/*.html')
+        .pipe(panini({
+            root: 'src/pages',
+            layouts: 'src/layouts/',
+            partials: 'src/partials/',
+            helpers: 'src/helpers/',
+            data: 'src/data/'
     }))
     .pipe(gulp.dest('dist'))
     .on('finish', browserSync.reload);
 });
 //
-gulp.task('press:reset', function(){
-    console.log('ass');
-
-});
+// gulp.task('press:reset', function(){
+//     console.log('ass');
+//
+// });
 
 
 
 
 
 //
-gulp.task('ws', function(cb) {
+gulp.task('server', function(cb) {
   browserSync({
     server: {
-      baseDir: paths.dirs.build
-    },
+      baseDir: paths.dirs.dist,
+      middleware: [
+          webpackDevMiddleware(bundler, {
+              publicPath: webpackConfig.output.publicPath,
+              stats: { colors: true }
+          }),
+          webpackHotMiddleware(bundler)
+          ]
+      },
     port: 8000,
     notify: true,
     open: false
@@ -133,21 +169,32 @@ gulp.task('ws', function(cb) {
 
 
 gulp.task('watch:code', function () {
-  gulp.watch([
-    paths.html,
-    // paths.coffee,
-    // paths.images,
-    // paths.json,
-    // paths.vendor.components.all,
-    // paths.vendor.bower.js
-], gulp.series('press'));
+    gulp.watch([
+        paths.html,
+        // paths.coffee,
+        // paths.images,
+        // paths.json,
+        // paths.vendor.components.all,
+        // paths.vendor.bower.js
+    ], gulp.series('press'));
+});
+
+gulp.task('watch:scripts', function() {
+    gulp.watch([
+        paths.scripts,
+        paths.sass
+    ], gulp.series('webpack'));
 });
 
 
-gulp.task('watch', gulp.parallel('watch:code','webpack-dev-server'));
+//gulp.task('build', gulp.parallel('html', 'sass', 'json', 'images', 'sass', 'less'));
+gulp.task('build', gulp.parallel('press'));
 
 
-gulp.task('develop', gulp.series('ws', 'press', 'watch'));
+gulp.task('watch', gulp.parallel('watch:code'));
+
+
+gulp.task('develop', gulp.series('server', 'build', 'watch'));
 
 
 

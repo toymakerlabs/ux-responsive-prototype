@@ -6,9 +6,11 @@ module.exports = {
     devtool: 'cheap-module-source-map',
 
     entry: {
-        app:[
+        main:[
             // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
             // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+            'webpack/hot/dev-server',
+            'webpack-hot-middleware/client',
             './src/index.js' // Your appʼs entry point
         ]
     },
@@ -26,9 +28,9 @@ module.exports = {
         host: 'localhost',
         historyApiFallback: true,
         noInfo: false,
-        contentBase: "./dist",
+        //contentBase: "./dist",
         stats: 'minimal',
-        publicPath: "/assets/"
+        publicPath: "/"
     },
 
     module: {
@@ -45,7 +47,7 @@ module.exports = {
     },
 
     plugins: [
-        //new HtmlWebpackPlugin({inject:true,template:"src/layouts/default.html"}),
+        //new HtmlWebpackPlugin({}),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
     ],
