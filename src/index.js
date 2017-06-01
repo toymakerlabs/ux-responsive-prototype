@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   console.log("sit");
 });
 
+$(document).ready(function(){
+    console.log("jquery here")
+})
+
 
 if(module.hot) {
 	module.hot.accept();
