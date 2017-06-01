@@ -1,7 +1,6 @@
----
-#https://github.com/shakacode/bootstrap-loader
+
 # Output debugging info
-#loglevel: debug
+# loglevel: debug
 
 # Major version of Bootstrap: 3 or 4
 bootstrapVersion: 4
@@ -11,18 +10,11 @@ useFlexbox: true
 
 
 # Webpack loaders, order matters
-env:
-  development:
-    styleLoaders:
-      - style-loader
-      - css-loader
-      - resolve-url-loader
-      - sass-loader
-  production:
-    styleLoaders:
-      - style-loader
-      - css-loader
-      - sass-loader
+styleLoaders:
+  - style-loader
+  - css-loader
+  - postcss-loader
+  - sass-loader
 
 # Extract styles to stand-alone css file
 # Different settings for different environments can be used,
@@ -64,7 +56,7 @@ extractStyles: false
 # Import your custom styles here. You have access to all the bootstrap variables. If you require
 # your sass files separately, you will not have access to the bootstrap variables, mixins, clases, etc.
 # Usually this endpoint-file contains list of @imports of your application styles.
-#appStyles: ./app/styles/app.scss
+appStyles: ./src/styles/main.scss
 
 ### Bootstrap styles
 styles:
