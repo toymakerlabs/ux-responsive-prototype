@@ -96,12 +96,14 @@ var paths = {
 }
 
 
-gulp.task('set-env-dev', function() {
-    return process.env.NODE_ENV = 'development';
+gulp.task('set-env-dev', function(cb) {
+    process.env.NODE_ENV = 'development';
+    cb();
 });
 
-gulp.task('set-env-prod', function() {
-    return process.env.NODE_ENV = 'production';
+gulp.task('set-env-prod', function(cb) {
+    process.env.NODE_ENV = 'production';
+    cb();
 });
 gulp.task('clean', function (cb) {
   return del(paths.dirs.dist, cb);
@@ -180,7 +182,7 @@ gulp.task('press:production', function() {
 // });
 
 
-
+var bundler = webpack(webpack_config_dev);
 
 
 //
@@ -189,11 +191,11 @@ gulp.task('server', function(cb) {
     server: {
       baseDir: paths.dirs.dist,
       middleware: [
-          webpackDevMiddleware(webpack(webpack_config_dev), {
+          webpackDevMiddleware(bundler, {
               publicPath: webpack_config_dev.output.publicPath,
               stats: { colors: true }
           }),
-          webpackHotMiddleware(webpack(webpack_config_dev))
+          webpackHotMiddleware(bundler)
           ]
       },
     port: 8000,
@@ -229,9 +231,9 @@ gulp.task('build', gulp.parallel('press'));
 
 gulp.task('watch', gulp.parallel('watch:code'));
 
-gulp.task('develop', gulp.series('server', 'build', 'watch'));
+gulp.task('develop', gulp.series('set-env-dev','server', 'build', 'watch'));
 
-gulp.task('production', gulp.series('clean','webpack', 'press:production','copybin'));
+gulp.task('production', gulp.series('set-env-prod','clean','webpack', 'press'));
 
 
 

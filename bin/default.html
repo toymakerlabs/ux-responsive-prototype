@@ -8,18 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
     <meta name="description" content="Hasf">
-    <!-- <script src="http://localhost:8000/main.bundle.js"></script> -->
-
-  <link href="main.css" rel="stylesheet"></head>
+    <!--  -->
+    {{#if globals.production}}
+    <link href="main.css" rel="stylesheet"></head>
+    {{#else}}
+      <script src="http://localhost:8000/main.bundle.js"></script>
+    {{/if}}
   <body>
-{{#if globals.production}}
-  <p>Production!</p>
-{{#else}}
-  <p>Not production.</p>
-{{/if}}
+
     {{> header}}
     <h1>title</h1>
     {{> body}}
     {{> footer}}
-  <script type="text/javascript" src="main.bundle.js"></script></body>
+    {{#if globals.production}}
+      <script type="text/javascript" src="main.bundle.js"></script>
+      {{/if}}
+</body>
 </html>
