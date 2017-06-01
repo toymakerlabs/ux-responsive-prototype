@@ -44,8 +44,22 @@ module.exports = {
 
     module: {
         rules: [
-            { test: /\.css$/, use: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]', 'postcss-loader'] },
-            { test: /\.scss$/, use: ['style-loader', 'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]', 'postcss-loader', 'sass-loader'] },
+            {  test: /\.css/,
+              use: [
+                { loader: 'style-loader', options: { sourceMap: true } },
+                { loader: 'css-loader', options: { sourceMap: true } },
+                { loader: 'postcss-loader', options: { sourceMap: true } },
+                { loader: 'sass-loader', options: { sourceMap: false } }
+              ]
+            },
+            { test: /\.scss$/,
+              use: [
+                { loader: 'style-loader', options: { sourceMap: true } },
+                { loader: 'css-loader', options: { sourceMap: true } },
+                { loader: 'postcss-loader', options: { sourceMap: true } },
+                { loader: 'sass-loader', options: { sourceMap: false } }
+              ]
+             },
             { test: /\.js$/,
             exclude: /(node_modules)/,
             use: {
@@ -64,7 +78,7 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.LoaderOptionsPlugin({
             postcss: [autoprefixer],
-            
+
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
