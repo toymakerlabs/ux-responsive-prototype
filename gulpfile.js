@@ -15,13 +15,17 @@ var gulpCopy = require('gulp-copy');
 var del = require('del');
 var bundler = webpack(webpack_config_dev);
 
+
+/*
+We're using gulp for panini, and for organizing our prototype html code
+and we get hot html reloading and JS reloading
+ */
+
 var PORT = 8000;
-
-
-
 
 var paths = {
     html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*'],
+    pages:['src/pages/**/*.html'],
     dirs: {
         dist: 'dist/'
     },
@@ -63,14 +67,14 @@ gulp.task("webpack", function(cb) {
     });
 });
 
-
-
-
-
+/**
+ * Press runs panni. it packs up the pages and partials in
+ * the src folder into actual HTML files.
+ */
 gulp.task('press', function() {
     console.log("press")
     panini.refresh();
-    return gulp.src('src/pages/**/*.html')
+    return gulp.src(paths.pages)
         .pipe(panini({
             root: 'src/pages',
             layouts: 'src/layouts/',
@@ -78,28 +82,18 @@ gulp.task('press', function() {
             helpers: 'src/helpers/',
             data: 'src/data/'
         }))
-        .pipe(gulp.dest('dist'))
-        .on('finish', browserSync.reload);
-});
-
-gulp.task('press:production', function() {
-    console.log("press")
-    panini.refresh();
-    return gulp.src('src/pages/**/*.html')
-        .pipe(panini({
-            root: 'src/pages',
-            layouts: 'bin/',
-            partials: 'src/partials/',
-            helpers: 'src/helpers/',
-            data: 'src/data/'
-        }))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(paths.dirs.dist))
         .on('finish', browserSync.reload);
 });
 
 
 
 
+
+/**
+ * Starts the gulp dev server. Webpack dev server is started with DevMiddleware using
+ * webpack.dev.config.
+ */
 gulp.task('server', function(cb) {
     browserSync({
         server: {
@@ -123,7 +117,7 @@ gulp.task('server', function(cb) {
 
 
 /**
- * Monitor code changes
+ * Monitor code changes for html - triggers browsersync for hot code reloading
  */
 gulp.task('watch:code', function() {
     gulp.watch([
@@ -134,19 +128,42 @@ gulp.task('watch:code', function() {
 });
 
 
-
+/* scaffold build function for other future stuff*/
 gulp.task('build', gulp.parallel('press'));
 
+/* scaffold build function for other future stuff.. images*/
 gulp.task('watch', gulp.parallel('watch:code'));
 
+/* start building and watching. set env triggers default.html layout to use the webpack provided dev js and css */
 gulp.task('develop', gulp.series('set-env-dev', 'server', 'build', 'watch'));
 
+/* triggers default html layout to use main js and css production bundles provided by webpack. */
 gulp.task('production', gulp.series('set-env-prod', 'clean', 'webpack', 'press'));
 
 
 
 
 
+
+
+
+
+
+
+// gulp.task('press:production', function() {
+//     console.log("press")
+//     panini.refresh();
+//     return gulp.src('src/pages/**/*.html')
+//         .pipe(panini({
+//             root: 'src/pages',
+//             layouts: 'bin/',
+//             partials: 'src/partials/',
+//             helpers: 'src/helpers/',
+//             data: 'src/data/'
+//         }))
+//         .pipe(gulp.dest(paths.dirs.dist))
+//         .on('finish', browserSync.reload);
+// });
 // gulp.task('copybin', function() {
 //     var sources = ['bin/main.bundle.js', 'bin/main.css'];
 //     var destination = 'dist/';
