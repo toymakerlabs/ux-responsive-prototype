@@ -21,6 +21,7 @@ and we get hot html reloading and JS reloading
 
 const PORT = 8000;
 
+
 const paths = {
     html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*'],
     pages:['src/pages/**/*.html'],
@@ -85,9 +86,6 @@ gulp.task('press', () => {
 });
 
 
-
-
-
 /**
  * Starts the gulp dev server. Webpack dev server is started with DevMiddleware using
  * webpack.dev.config.
@@ -111,8 +109,6 @@ gulp.task('server', (cb) => {
         open: false
     }, cb);
 });
-
-
 
 /**
  * Monitor code changes for html - triggers browsersync for hot code reloading
