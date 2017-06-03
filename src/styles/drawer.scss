@@ -1,0 +1,20 @@
+.drawer {
+    position: absolute;
+    top:0;
+    height:100%;
+    width:$sidebar-width;
+    left:-$sidebar-width;
+
+    background: rgba(0,0,0,0.6);
+    &.open {
+        left:0;
+    }
+}
+.drawer-inner {
+    height:100%;
+    color:white;
+
+    #drawer-close {
+        float:right;
+    }
+}

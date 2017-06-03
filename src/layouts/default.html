@@ -10,24 +10,22 @@
 {{#if globals.production}}
     <link href="main.bundle.css" rel="stylesheet"></head>
     {{else}}
-     <script src="http://localhost:8000/main.bundle.js"></script>
+     <script src="main.bundle.js"></script>
 {{/if}}
 <body>
-<div class="main-wrapper">
-<div class="main" id="main-container">
-    <div class="drawer-wrapper">
-        {{> sidebar}}
+<div class="main" id="main">
+    {{> header}}
+    <div id='drawer' class="drawer">
+        {{> drawer}}
     </div>
-    <div class="page-wrapper">
-        {{> header}}
+    <div id='page' class="page">
         {{> body}}
         {{> footer}}
     </div>
-</div>
-</div>
 
-{{#if globals.production}}
-    <script type="text/javascript" src="main.bundle.js"></script>
-{{/if}}
-</body>
+    {{#if globals.production}}
+        <script type="text/javascript" src="main.bundle.js"></script>
+    {{/if}}
+    </body>
+</div>
 </html>
