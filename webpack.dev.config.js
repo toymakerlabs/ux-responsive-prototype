@@ -8,7 +8,7 @@ module.exports = {
     devtool: '#cheap-module-source-map',
 
     entry: {
-        main:[
+        main: [
             'webpack-hot-middleware/client',
             'tether',
             'bootstrap-loader',
@@ -36,25 +36,51 @@ module.exports = {
     module: {
         rules: [{
             test: /\.css/,
-            use: [
-                { loader: 'style-loader', options: { sourceMap: false } },
-                { loader: 'css-loader', options: { sourceMap: true } },
-                { loader: 'sass-loader', options: { sourceMap: false } }
+            use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                },
+                {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                }
             ]
-        },{
+        }, {
             test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             use: 'url-loader?limit=10000',
-        },{
+        }, {
             test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
             use: 'file-loader',
-        },{
+        }, {
             test: /\.scss$/,
-            use: [
-                { loader: 'style-loader', options: { sourceMap: false } },
-                { loader: 'css-loader', options: { sourceMap: true } },
-                { loader: 'sass-loader', options: { sourceMap: false } }
+            use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                },{
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },{
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                }
             ]
-         },{
+        }, {
             test: /\.js$/,
             exclude: /(node_modules)/,
             use: {
@@ -86,6 +112,6 @@ module.exports = {
             Tab: "exports-loader?Tab!bootstrap/js/dist/tab",
             Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
             Util: "exports-loader?Util!bootstrap/js/dist/util",
-          })
+        })
     ]
 }

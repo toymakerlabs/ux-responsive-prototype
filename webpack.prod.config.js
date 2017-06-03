@@ -4,10 +4,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-
 module.exports = {
     entry: {
-        main:[
+        main: [
             // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
             // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
             'bootstrap-loader/extractStyles',
@@ -23,85 +22,82 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
-              test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-              use: 'url-loader?limit=10000',
-            },
-            {
-              test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-              use: 'file-loader',
-            },
-            {
-            test: /\.css$/, use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                  minimize: true,
-                  discardComments: {
-                    removeAll: true
-                  }
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: () => [autoprefixer]
-                }
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: false
-                }
-              }
-            ]
-             })},
-            { test: /\.scss$/, use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                  minimize: true,
-                  discardComments: {
-                    removeAll: true
-                  }
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: () => [autoprefixer]
-                }
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: false
-                }
-              }
-            ]
-             })
-        },{
-            test: /\.js$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['env']
+        rules: [{
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: 'url-loader?limit=10000',
+            },{
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                use: 'file-loader',
+            },{
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                minimize: true,
+                                discardComments: {
+                                    removeAll: true
+                                }
+                            }
+                        },{
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: () => [autoprefixer]
+                            }
+                        },{
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: false
+                            }
+                        }
+                    ]
+                })
+            },{
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                minimize: true,
+                                discardComments: {
+                                    removeAll: true
+                                }
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: () => [autoprefixer]
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: false
+                            }
+                        }
+                    ]
+                })
+            },{
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env']
+                    }
                 }
             }
-        }]
+        ]
     },
 
     plugins: [
         new webpack.LoaderOptionsPlugin({
-             postcss: [ autoprefixer('last 2 versions') ]
+            postcss: [autoprefixer('last 2 versions')]
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -128,12 +124,12 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
             mangle: {
-            screw_ie8: true,
-            keep_fnames: true
-        },
-        compress: {
-            screw_ie8: true
-        },
+                screw_ie8: true,
+                keep_fnames: true
+            },
+            compress: {
+                screw_ie8: true
+            },
             comments: false
         }),
         new ExtractTextPlugin({
