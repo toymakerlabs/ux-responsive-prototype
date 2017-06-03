@@ -1,4 +1,6 @@
 //https://gist.github.com/demisx/beef93591edc1521330a
+//http://jsramblings.com/2016/07/16/hot-reloading-gulp-webpack-browsersync.html
+
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var webpack = require("webpack");
@@ -6,13 +8,161 @@ var WebpackDevServer = require("webpack-dev-server");
 var webpack_config_dev = require("./webpack.dev.config.js");
 var webpack_config_prod = require("./webpack.prod.config.js");
 var panini = require('panini');
-var browserSync  = require('browser-sync');
+var browserSync = require('browser-sync');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var gulpCopy = require('gulp-copy');
 var del = require('del');
+var bundler = webpack(webpack_config_dev);
 
 var PORT = 8000;
+
+
+
+
+var paths = {
+    html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*'],
+    dirs: {
+        dist: 'dist/'
+    },
+    scripts: 'src/**/*.js',
+    sass: 'src/**/*.scss',
+}
+
+/**
+ * We set the env to conditionally include the Dev or prod css/js
+ */
+gulp.task('set-env-dev', function(cb) {
+    process.env.NODE_ENV = 'development';
+    cb();
+});
+
+gulp.task('set-env-prod', function(cb) {
+    process.env.NODE_ENV = 'production';
+    cb();
+});
+gulp.task('clean', function(cb) {
+    return del(paths.dirs.dist, cb);
+});
+
+
+/**
+ * Production webpack compressor. Runs webpack Production config
+ * generating main.bundle.js and main.bundle.css.
+ */
+gulp.task("webpack", function(cb) {
+    // modify some webpack config options
+    var prod_config = Object.create(webpack_config_prod);
+    // run webpack
+    webpack(prod_config, function(err, stats) {
+        if (err) throw new gutil.PluginError("webpack", err);
+        gutil.log("[webpack]", stats.toString({
+            colors: true
+        }));
+        cb();
+    });
+});
+
+
+
+
+
+gulp.task('press', function() {
+    console.log("press")
+    panini.refresh();
+    return gulp.src('src/pages/**/*.html')
+        .pipe(panini({
+            root: 'src/pages',
+            layouts: 'src/layouts/',
+            partials: 'src/partials/',
+            helpers: 'src/helpers/',
+            data: 'src/data/'
+        }))
+        .pipe(gulp.dest('dist'))
+        .on('finish', browserSync.reload);
+});
+
+gulp.task('press:production', function() {
+    console.log("press")
+    panini.refresh();
+    return gulp.src('src/pages/**/*.html')
+        .pipe(panini({
+            root: 'src/pages',
+            layouts: 'bin/',
+            partials: 'src/partials/',
+            helpers: 'src/helpers/',
+            data: 'src/data/'
+        }))
+        .pipe(gulp.dest('dist'))
+        .on('finish', browserSync.reload);
+});
+
+
+
+
+gulp.task('server', function(cb) {
+    browserSync({
+        server: {
+            baseDir: paths.dirs.dist,
+            middleware: [
+                webpackDevMiddleware(bundler, {
+                    publicPath: webpack_config_dev.output.publicPath,
+                    stats: {
+                        colors: true
+                    }
+                }),
+                webpackHotMiddleware(bundler)
+            ]
+        },
+        port: 8000,
+        notify: true,
+        open: false
+    }, cb);
+});
+
+
+
+/**
+ * Monitor code changes
+ */
+gulp.task('watch:code', function() {
+    gulp.watch([
+        paths.html,
+        // paths.images,
+        // paths.json,
+    ], gulp.series('press'));
+});
+
+
+
+gulp.task('build', gulp.parallel('press'));
+
+gulp.task('watch', gulp.parallel('watch:code'));
+
+gulp.task('develop', gulp.series('set-env-dev', 'server', 'build', 'watch'));
+
+gulp.task('production', gulp.series('set-env-prod', 'clean', 'webpack', 'press'));
+
+
+
+
+
+// gulp.task('copybin', function() {
+//     var sources = ['bin/main.bundle.js', 'bin/main.css'];
+//     var destination = 'dist/';
+//
+//     return gulp.src(sources).pipe(gulp.dest(paths.dirs.dist));
+// })
+
+// gulp.task('watch:scripts', function() {
+//     gulp.watch([
+//         paths.scripts,
+//         paths.sass
+//     ], gulp.series('webpack'));
+// });
+
+
+
 // The development server (the recommended option for development)
 // gulp.task("default", ["webpack-dev-server"]);
 //
@@ -85,156 +235,6 @@ var PORT = 8000;
 //         gutil.log('[webpack-dev-server]', 'http://localhost:7777/index.html');
 //     });
 // });
-
-
-
-
-var paths = {
-  html: ['src/pages/**/*.html','src/{layouts,partials,helpers,data}/**/*'],
-  dirs: { dist:'dist/' },
-  scripts:'src/**/*.js',
-  sass: 'src/**/*.scss',
-}
-
-
-gulp.task('set-env-dev', function(cb) {
-    process.env.NODE_ENV = 'development';
-    cb();
-});
-
-gulp.task('set-env-prod', function(cb) {
-    process.env.NODE_ENV = 'production';
-    cb();
-});
-gulp.task('clean', function (cb) {
-  return del(paths.dirs.dist, cb);
-});
-
-
-
-gulp.task("webpack", function(cb) {
-	// modify some webpack config options
-	var prod_config = Object.create(webpack_config_prod);
-	// myConfig.plugins = myConfig.plugins.concat(
-	// 	new webpack.DefinePlugin({
-	// 		"process.env": {
-	// 			// This has effect on the react lib size
-	// 			"NODE_ENV": JSON.stringify("production")
-	// 		}
-	// 	}),
-	// 	new webpack.optimize.DedupePlugin(),
-	// 	new webpack.optimize.UglifyJsPlugin()
-	// );
-
-	// run webpack
-	webpack(prod_config, function(err, stats) {
-		if(err) throw new gutil.PluginError("webpack", err);
-		gutil.log("[webpack]", stats.toString({
-			colors: true
-		}));
-		cb();
-	});
-});
-
-
-
-
-
-gulp.task('copybin',function(){
-    var sources = [ 'bin/main.bundle.js', 'bin/main.css' ];
-    var destination = 'dist/';
-
-    return gulp.src(sources).pipe(gulp.dest(paths.dirs.dist));
-})
-
-gulp.task('press', function() {
-    console.log("press")
-    panini.refresh();
-    return gulp.src('src/pages/**/*.html')
-        .pipe(panini({
-            root: 'src/pages',
-            layouts: 'src/layouts/',
-            partials: 'src/partials/',
-            helpers: 'src/helpers/',
-            data: 'src/data/'
-    }))
-    .pipe(gulp.dest('dist'))
-    .on('finish', browserSync.reload);
-});
-
-gulp.task('press:production', function() {
-    console.log("press")
-    panini.refresh();
-    return gulp.src('src/pages/**/*.html')
-        .pipe(panini({
-            root: 'src/pages',
-            layouts: 'bin/',
-            partials: 'src/partials/',
-            helpers: 'src/helpers/',
-            data: 'src/data/'
-    }))
-    .pipe(gulp.dest('dist'))
-    .on('finish', browserSync.reload);
-});
-//
-// gulp.task('press:reset', function(){
-//     console.log('ass');
-//
-// });
-
-
-var bundler = webpack(webpack_config_dev);
-
-
-//http://jsramblings.com/2016/07/16/hot-reloading-gulp-webpack-browsersync.html
-gulp.task('server', function(cb) {
-  browserSync({
-    server: {
-      baseDir: paths.dirs.dist,
-      middleware: [
-          webpackDevMiddleware(bundler, {
-              publicPath: webpack_config_dev.output.publicPath,
-              stats: { colors: true }
-          }),
-          webpackHotMiddleware(bundler)
-          ]
-      },
-    port: 8000,
-    notify: true,
-    open: false
-  }, cb);
-});
-
-
-
-
-gulp.task('watch:code', function () {
-    gulp.watch([
-        paths.html,
-        // paths.coffee,
-        // paths.images,
-        // paths.json,
-        // paths.vendor.components.all,
-        // paths.vendor.bower.js
-    ], gulp.series('press'));
-});
-
-// gulp.task('watch:scripts', function() {
-//     gulp.watch([
-//         paths.scripts,
-//         paths.sass
-//     ], gulp.series('webpack'));
-// });
-
-
-//gulp.task('build', gulp.parallel('html', 'sass', 'json', 'images', 'sass', 'less'));
-gulp.task('build', gulp.parallel('press'));
-
-gulp.task('watch', gulp.parallel('watch:code'));
-
-gulp.task('develop', gulp.series('set-env-dev','server', 'build', 'watch'));
-
-gulp.task('production', gulp.series('set-env-prod','clean','webpack', 'press'));
 
 
 
