@@ -1,19 +1,17 @@
 //https://gist.github.com/demisx/beef93591edc1521330a
 //http://jsramblings.com/2016/07/16/hot-reloading-gulp-webpack-browsersync.html
 
-var gulp = require("gulp");
-var gutil = require("gulp-util");
-var webpack = require("webpack");
-var WebpackDevServer = require("webpack-dev-server");
-var webpack_config_dev = require("./webpack.dev.config.js");
-var webpack_config_prod = require("./webpack.prod.config.js");
-var panini = require('panini');
-var browserSync = require('browser-sync');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var gulpCopy = require('gulp-copy');
-var del = require('del');
-var bundler = webpack(webpack_config_dev);
+const gulp = require("gulp");
+const gutil = require("gulp-util");
+const webpack = require("webpack");
+const webpack_config_dev = require("./webpack.dev.config.js");
+const webpack_config_prod = require("./webpack.prod.config.js");
+const panini = require('panini');
+const browserSync = require('browser-sync');
+const webpack_dev_middleware = require('webpack-dev-middleware');
+const webpack_hot_middleware = require('webpack-hot-middleware');
+const del = require('del');
+const bundler = webpack(webpack_config_dev);
 
 
 /*
@@ -21,9 +19,9 @@ We're using gulp for panini, and for organizing our prototype html code
 and we get hot html reloading and JS reloading
  */
 
-var PORT = 8000;
+const PORT = 8000;
 
-var paths = {
+const paths = {
     html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*'],
     pages:['src/pages/**/*.html'],
     dirs: {
@@ -36,16 +34,16 @@ var paths = {
 /**
  * We set the env to conditionally include the Dev or prod css/js
  */
-gulp.task('set-env-dev', function(cb) {
+gulp.task('set-env-dev', (cb) => {
     process.env.NODE_ENV = 'development';
     cb();
 });
 
-gulp.task('set-env-prod', function(cb) {
+gulp.task('set-env-prod', (cb)=> {
     process.env.NODE_ENV = 'production';
     cb();
 });
-gulp.task('clean', function(cb) {
+gulp.task('clean', (cb)=> {
     return del(paths.dirs.dist, cb);
 });
 
@@ -54,11 +52,11 @@ gulp.task('clean', function(cb) {
  * Production webpack compressor. Runs webpack Production config
  * generating main.bundle.js and main.bundle.css.
  */
-gulp.task("webpack", function(cb) {
+gulp.task("webpack", (cb) => {
     // modify some webpack config options
-    var prod_config = Object.create(webpack_config_prod);
+    const prod_config = Object.create(webpack_config_prod);
     // run webpack
-    webpack(prod_config, function(err, stats) {
+    webpack(prod_config, (err, stats) => {
         if (err) throw new gutil.PluginError("webpack", err);
         gutil.log("[webpack]", stats.toString({
             colors: true
@@ -71,7 +69,7 @@ gulp.task("webpack", function(cb) {
  * Press runs panni. it packs up the pages and partials in
  * the src folder into actual HTML files.
  */
-gulp.task('press', function() {
+gulp.task('press', () => {
     console.log("press")
     panini.refresh();
     return gulp.src(paths.pages)
@@ -94,18 +92,18 @@ gulp.task('press', function() {
  * Starts the gulp dev server. Webpack dev server is started with DevMiddleware using
  * webpack.dev.config.
  */
-gulp.task('server', function(cb) {
+gulp.task('server', (cb) => {
     browserSync({
         server: {
             baseDir: paths.dirs.dist,
             middleware: [
-                webpackDevMiddleware(bundler, {
+                webpack_dev_middleware(bundler, {
                     publicPath: webpack_config_dev.output.publicPath,
                     stats: {
                         colors: true
                     }
                 }),
-                webpackHotMiddleware(bundler)
+                webpack_hot_middleware(bundler)
             ]
         },
         port: 8000,
@@ -119,7 +117,7 @@ gulp.task('server', function(cb) {
 /**
  * Monitor code changes for html - triggers browsersync for hot code reloading
  */
-gulp.task('watch:code', function() {
+gulp.task('watch:code', () => {
     gulp.watch([
         paths.html,
         // paths.images,
