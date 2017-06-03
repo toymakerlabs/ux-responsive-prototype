@@ -1,0 +1,17 @@
+.drawer-wrapper {
+    position: absolute;
+    height:100%;
+    width:$sidebar-width;
+    left:-$sidebar-width;
+    background: rgba(0,0,0,0.6);
+}
+.drawer {
+    height:100%;
+    color:white;
+
+    #sidebar-close {
+        position: absolute;
+        top:15px;
+        right:15px;
+    }
+}
