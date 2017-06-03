@@ -5,12 +5,13 @@ const autoprefixer = require('autoprefixer');
 
 //https://github.com/shakacode/bootstrap-loader/blob/master/examples/basic/webpack.bootstrap.config.js
 module.exports = {
-    devtool: '#cheap-module-source-map',
+    devtool: '#cheap-module-eval-source-map',
 
     entry: {
         main: [
             'webpack-hot-middleware/client',
             'tether',
+            'font-awesome-loader',
             'bootstrap-loader',
             './src/index.js' // Your appʼs entry point
         ]
@@ -39,7 +40,7 @@ module.exports = {
             use: [{
                     loader: 'style-loader',
                     options: {
-                        sourceMap: false
+                        sourceMap: true
                     }
                 },
                 {
@@ -51,7 +52,7 @@ module.exports = {
                 {
                     loader: 'sass-loader',
                     options: {
-                        sourceMap: false
+                        sourceMap: true
                     }
                 }
             ]

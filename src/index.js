@@ -1,5 +1,5 @@
-import './styles/main.scss';
-import './js/butt.js';
+//import './styles/main.scss';
+import navigation from './js/navigation.js';
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
@@ -9,8 +9,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 $(document).ready(function(){
+    navigation();
     console.log("jquery here")
 })
+
+
+
+
 
 
 if(module.hot) {

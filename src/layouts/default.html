@@ -1,26 +1,33 @@
-{{!-- This is the base layout for your project, and will be used on every page. --}}
-
 <!doctype html>
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-    <meta name="description" content="Hasf">
-    {{#if globals.production}}
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thing</title>
+<meta name="description" content="Thingy">
+
+{{#if globals.production}}
     <link href="main.bundle.css" rel="stylesheet"></head>
     {{else}}
-      <script src="http://localhost:8000/main.bundle.js"></script>
-    {{/if}}
-  <body>
+     <script src="http://localhost:8000/main.bundle.js"></script>
+{{/if}}
+<body>
+<div class="main-wrapper">
+<div class="main" id="main-container">
+    <div class="drawer-wrapper">
+        {{> sidebar}}
+    </div>
+    <div class="page-wrapper">
+        {{> header}}
+        {{> body}}
+        {{> footer}}
+    </div>
+</div>
+</div>
 
-    {{> header}}
-    <h1>title</h1>
-    {{> body}}
-    {{> footer}}
-    {{#if globals.production}}
-      <script type="text/javascript" src="main.bundle.js"></script>
-    {{/if}}
+{{#if globals.production}}
+    <script type="text/javascript" src="main.bundle.js"></script>
+{{/if}}
 </body>
 </html>
