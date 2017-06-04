@@ -6,7 +6,7 @@
          align-items: center;
     }
     .navbar-toggler {
-        z-index: 1030;
+        z-index: 99999;
     }
     .logo {
         text-align: center;
@@ -20,6 +20,7 @@
     .search {
         position: absolute;
         right:1em;
+        top:0.5em;
         z-index: 1030;
     }
     .social {

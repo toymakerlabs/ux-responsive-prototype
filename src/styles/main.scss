@@ -57,7 +57,9 @@ body {
     width:100%;
 }
 
-
+.container-fluid.jumbo {
+    padding:0;
+}
 
 @include media-breakpoint-up(md) {
     .image-inline{

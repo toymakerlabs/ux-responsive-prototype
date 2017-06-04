@@ -7,36 +7,42 @@
 // Example usage:
 
 .advertisment {
-    background:rgba(0,0,0,0.25);
     font-size: 0;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:0.5rem;
+
     p{
         font-size: 12px;
+        align-self: flex-end;
     }
-    .row {
-        padding:1rem 0 ;
+    &.mpu {
+        background:rgba(0,0,0,0.25);
     }
-}
-.leaderboard{
-    text-align: center;
-    font-size: 0;
+
 }
 
-.ad {
-    display:inline-block;
+
+.leaderboard {
+    display:block;
     width:320px;
     height:50px;
     background:#333;
 }
 
 @include media-breakpoint-up(md) {
-    .ad {
+    .leaderboard {
         width:728px;
         height:90px;
     }
 }
 
 @include media-breakpoint-up(lg) {
-    .ad {
+    .leaderboard {
         width:970px;
         height:250px;
     }
