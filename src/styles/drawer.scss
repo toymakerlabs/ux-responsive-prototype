@@ -3,12 +3,23 @@
     top:0;
     height:100%;
     width:$sidebar-width;
-    left:-$sidebar-width;
+
     background: rgba(0,0,0,0.6);
     overflow-y: scroll;
     -webkit-overflow-scrolling:touch;
-    &.open {
+
+    &.left {
+        left:-$sidebar-width;
+    }
+    &.right{
+        right:-$sidebar-width;
+    }
+
+    &.left.open {
         left:0;
+    }
+    &.right.open {
+        right:0;
     }
 
     .nav-item {
