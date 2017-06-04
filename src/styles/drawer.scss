@@ -9,6 +9,14 @@
     &.open {
         left:0;
     }
+
+    .nav-item.hidden-lg-down {
+        display:block!important;
+    }
+
+    .nav-item.hidden-xl-up {
+        display:none!important;
+    }
 }
 .drawer-inner {
     height:100%;
