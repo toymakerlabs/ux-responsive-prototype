@@ -3,6 +3,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
+//http://www.pcgamer.com/the-aircraft-grade-g413-mechanical-keyboard-is-built-to-last/
+
 //https://github.com/shakacode/bootstrap-loader/blob/master/examples/basic/webpack.bootstrap.config.js
 module.exports = {
     devtool: '#cheap-module-eval-source-map',

@@ -5,6 +5,17 @@
 // @include media-breakpoint-up(xl) { ... }
 
 // Example usage:
+
+.advertisment {
+    background:rgba(0,0,0,0.25);
+    font-size: 0;
+    p{
+        font-size: 12px;
+    }
+    .row {
+        padding:1rem 0 ;
+    }
+}
 .leaderboard{
     text-align: center;
     font-size: 0;
