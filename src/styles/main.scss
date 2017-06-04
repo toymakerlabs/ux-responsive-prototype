@@ -3,6 +3,7 @@
 @import 'nav.scss';
 @import 'ads.scss';
 @import 'carousel.scss';
+@import 'footer.scss';
 
 /*imported from .bootstraprc*/
 
@@ -48,6 +49,19 @@ body {
 .carousel-img {
     width:100%;
 }
+
+.image-inline{
+    display: block;
+    width:100%;
+}
+
+@include media-breakpoint-up(md) {
+    .image-inline{
+        width:50%;
+    }
+}
+
+
 /*
 .main-wrapper {
     overflow-x: hidden;

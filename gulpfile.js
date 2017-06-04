@@ -24,7 +24,7 @@ const PORT = 8000;
 
 
 const paths = {
-    html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*'],
+    html: ['src/pages/**/*.html', 'src/{layouts,partials,helpers,data}/**/*.html'],
     pages:['src/pages/**/*.html'],
     dirs: {
         dist: 'dist/'
@@ -123,19 +123,21 @@ gulp.task('watch:code', () => {
 });
 
 
-gulp.task('images', () =>
-    gulp.src('./src/images/*')
+gulp.task('images', (cb) => {
+     gulp.src('./src/images/*')
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: false}),
             imagemin.optipng({optimizationLevel: 6})
         ]))
-        .pipe(gulp.dest('./dist/images'))
-);
+        .pipe(gulp.dest('./dist/images'));
+        cb();
+});
 
-gulp.task('images:dev', function() {
+gulp.task('images:dev', function(cb) {
    gulp.src('./src/images/*')
    .pipe(gulp.dest('./dist/images'));
+   cb();
 });
 
 
