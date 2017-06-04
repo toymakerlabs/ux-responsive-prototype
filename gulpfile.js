@@ -147,7 +147,7 @@ gulp.task('build', gulp.parallel('press','images:dev'));
 gulp.task('build:production', gulp.parallel('press','images'));
 
 /* scaffold build function for other future stuff.. images*/
-gulp.task('watch', gulp.parallel('watch:code'));
+gulp.task('watch', gulp.parallel('watch:code','images:dev'));
 
 /* start building and watching. set env triggers default.html layout to use the webpack provided dev js and css */
 gulp.task('develop', gulp.series('set-env-dev', 'server', 'build', 'watch'));

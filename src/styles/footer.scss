@@ -1,1 +1,38 @@
-footer{background:blue};
+
+
+footer {
+    background:#333;
+    .nav {
+        display: block;
+        text-transform: center;
+        .nav-item  {
+            display:block;
+            text-align: center;
+            .nav-link {
+                display:inline-block;
+            }
+        }
+    }
+}
+
+
+@include media-breakpoint-up(md) {
+    .nav {
+        .nav-item {
+            float:left;
+            .nav-link {
+                padding:0.5em 0.5em;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .nav {
+        .nav-item {
+            .nav-link {
+                padding:0.5em 1em;
+            }
+        }
+    }
+}

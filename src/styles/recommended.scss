@@ -1,0 +1,14 @@
+.recommended {
+    .list-group {
+        width:100%;
+
+        .list-group-item {
+            span:first-child {
+                white-space: nowrap;
+                max-width: calc(100% - 2em);
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

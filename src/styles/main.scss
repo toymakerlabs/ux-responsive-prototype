@@ -3,6 +3,8 @@
 @import 'nav.scss';
 @import 'ads.scss';
 @import 'carousel.scss';
+@import 'tags.scss';
+@import 'recommended.scss';
 @import 'footer.scss';
 
 /*imported from .bootstraprc*/
@@ -54,6 +56,8 @@ body {
     display: block;
     width:100%;
 }
+
+
 
 @include media-breakpoint-up(md) {
     .image-inline{

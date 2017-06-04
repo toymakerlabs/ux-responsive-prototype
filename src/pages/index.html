@@ -15,7 +15,9 @@
     </header>
     <div class="row">
         <div class="col">
-            <img class="img-fluid" src="{{root}}images/silver_final_5k.jpg" alt="">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/nS7CUFHUSUc?rel=0?modestbranding=1&showinfo=1&controls=1" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -31,9 +33,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <div class="embed-responsive embed-responsive-16by9 placeholder-image">
-                <span>image</span>
-            </div>
+            <img class="img-fluid" src="{{root}}images/large_masthead.jpg" alt="">
         </div>
     </div>
     <div class="row">
@@ -99,7 +99,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-lg-10 offset-lg-1">
-            <img class="image-inline pull-left" src={{root}}images/keyswap.jpg />
+            <img class="image-inline pull-left" src={{root}}images/silver_final_5k.jpg />
             <h3>It'll have your back – for years</h3>
             <p>The G413's keys have been tested to 70 million presses—regular keyboards generally top out around 5 million. The tough, 5052 aluminum-magnesium alloy top plate, burly chassis and braided cabling are built to last an equally long time.</p>
          </div>
@@ -114,4 +114,22 @@
         <p>So trust us when we say this: one glimpse of your Carbon or Silver G413 mechanical gaming keyboard and admirers will be forming an orderly queue.</p>
     </div>
 </div>
+
+{{> ads }}
+<aside class="related">
+    <div class="container">
+        <div class="row">
+            <section class="col-md-12 col-lg-10 offset-lg-1 tags">
+                <h5>Tags</h5>
+                {{> tags }}
+            </section>
+        </div>
+        <div class="row">
+            <section class="col-md-12 col-lg-10 offset-lg-1 recommended">
+                <h5>Recommended Articles</h5>
+                {{> recommended }}
+            </section>
+        </div>
+    </div>
+</aside>
 </article>
