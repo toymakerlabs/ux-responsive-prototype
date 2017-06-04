@@ -4,17 +4,18 @@
     height:100%;
     width:$sidebar-width;
     left:-$sidebar-width;
-
     background: rgba(0,0,0,0.6);
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
     &.open {
         left:0;
     }
 
-    .nav-item.hidden-lg-down {
+    .nav-item {
         display:block!important;
     }
 
-    .nav-item.hidden-xl-up {
+    .nav-item.dropdown {
         display:none!important;
     }
 }

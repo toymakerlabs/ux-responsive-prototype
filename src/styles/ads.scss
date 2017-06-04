@@ -1,0 +1,31 @@
+// @include media-breakpoint-up(xs) { ... }
+// @include media-breakpoint-up(sm) { ... }
+// @include media-breakpoint-up(md) { ... }
+// @include media-breakpoint-up(lg) { ... }
+// @include media-breakpoint-up(xl) { ... }
+
+// Example usage:
+.leaderboard{
+    text-align: center;
+}
+
+.ad {
+    display:inline-block;
+    width:320px;
+    height:50px;
+    background:#333;
+}
+
+@include media-breakpoint-up(md) {
+    .ad {
+        width:728px;
+        height:90px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .ad {
+        width:970px;
+        height:250px;
+    }
+}

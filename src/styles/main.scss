@@ -1,6 +1,7 @@
 @import 'utilities/vars.scss';
 @import 'drawer.scss';
 @import 'nav.scss';
+@import 'ads.scss';
 
 /*imported from .bootstraprc*/
 
@@ -19,7 +20,7 @@ body {
     overflow:auto;
 }
 .main.open {
-
+    width:100%;
     overflow: hidden;
 }
 
