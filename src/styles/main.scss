@@ -2,6 +2,7 @@
 @import 'drawer.scss';
 @import 'nav.scss';
 @import 'ads.scss';
+@import 'carousel.scss';
 
 /*imported from .bootstraprc*/
 
@@ -44,6 +45,9 @@ body {
     color:#333333;
 }
 
+.carousel-img {
+    width:100%;
+}
 /*
 .main-wrapper {
     overflow-x: hidden;

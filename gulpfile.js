@@ -12,6 +12,7 @@ const webpack_dev_middleware = require('webpack-dev-middleware');
 const webpack_hot_middleware = require('webpack-hot-middleware');
 const del = require('del');
 const bundler = webpack(webpack_config_dev);
+const imagemin = require('gulp-imagemin');
 
 
 /*
@@ -122,8 +123,19 @@ gulp.task('watch:code', () => {
 });
 
 
+gulp.task('images', () =>
+    gulp.src('src/images/*')
+        .pipe(imagemin([
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.jpegtran({progressive: false}),
+            imagemin.optipng({optimizationLevel: 5})
+        ]))
+        .pipe(gulp.dest('dist/images'))
+);
+
+
 /* scaffold build function for other future stuff*/
-gulp.task('build', gulp.parallel('press'));
+gulp.task('build', gulp.parallel('press','images'));
 
 /* scaffold build function for other future stuff.. images*/
 gulp.task('watch', gulp.parallel('watch:code'));
