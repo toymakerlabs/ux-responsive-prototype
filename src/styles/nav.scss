@@ -1,11 +1,17 @@
 /*nav */
 
 .navbar {
-    .navbar-brand {
-        position: relative;
-        left:4.5rem;
+    .navbar-toggler {
+        z-index: 1030;
+    }
+    .logo {
+        text-align: center;
+        margin:0 auto;
+        .navbar-brand {
+            margin-right:0;
+        }
     }
 }
 .navbar.open {
-    left:260px;
+    transform:translate3d(260px,0,0)
 }
