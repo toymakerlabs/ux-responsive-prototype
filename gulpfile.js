@@ -124,18 +124,25 @@ gulp.task('watch:code', () => {
 
 
 gulp.task('images', () =>
-    gulp.src('src/images/*')
+    gulp.src('./src/images/*')
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: false}),
-            imagemin.optipng({optimizationLevel: 5})
+            imagemin.optipng({optimizationLevel: 6})
         ]))
-        .pipe(gulp.dest('dist/images'))
+        .pipe(gulp.dest('./dist/images'))
 );
+
+gulp.task('images:dev', function() {
+   gulp.src('./src/images/*')
+   .pipe(gulp.dest('./dist/images'));
+});
 
 
 /* scaffold build function for other future stuff*/
-gulp.task('build', gulp.parallel('press','images'));
+gulp.task('build', gulp.parallel('press','images:dev'));
+
+gulp.task('build:production', gulp.parallel('press','images'));
 
 /* scaffold build function for other future stuff.. images*/
 gulp.task('watch', gulp.parallel('watch:code'));
@@ -144,7 +151,7 @@ gulp.task('watch', gulp.parallel('watch:code'));
 gulp.task('develop', gulp.series('set-env-dev', 'server', 'build', 'watch'));
 
 /* triggers default html layout to use main js and css production bundles provided by webpack. */
-gulp.task('production', gulp.series('set-env-prod', 'clean', 'webpack', 'press'));
+gulp.task('production', gulp.series('set-env-prod', 'clean', 'webpack', 'build:production'));
 
 
 
