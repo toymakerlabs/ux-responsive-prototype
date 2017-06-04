@@ -6,7 +6,7 @@ export default function navigation() {
 	const main = $("#main");
 	const nav = $("#main-nav");
 	const page = $("#page");
-	const drawer = $("#drawer");
+	const drawer = $("#mobile-nav");
 
 	button.on("click",function(e){
 		e.preventDefault();

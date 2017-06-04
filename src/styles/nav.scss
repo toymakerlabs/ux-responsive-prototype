@@ -16,6 +16,12 @@
             margin-right:0;
         }
     }
+
+    .search {
+        position: absolute;
+        right:1em;
+        z-index: 1030;
+    }
     .social {
         padding:0 0.5em;
         height:100%;
@@ -28,4 +34,13 @@
 
 .navbar.open {
     transform:translate3d(260px,0,0)
+}
+
+
+@include media-breakpoint-up(md) {
+    .navbar {
+        .search {
+            position: static;
+        }
+    }
 }
