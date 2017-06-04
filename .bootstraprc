@@ -12,13 +12,12 @@ useFlexbox: true
 # Webpack loaders, order matters
 env:
   development:
-      styleLoaders:
+    styleLoaders:
         - style-loader
         - css-loader
-        #- postcss-loader
         - sass-loader
   production:
-      styleLoaders:
+    styleLoaders:
         - style-loader
         - css-loader
         - postcss-loader
