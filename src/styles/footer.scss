@@ -1,27 +1,50 @@
 
 
 footer {
-    background:#333;
+    background:$nav-background;
+    padding-top:1rem;
+
+    p {
+        color:$main-text-color;
+    }
     .nav {
         display: block;
-        text-transform: center;
+        border-top:$border-default;
+        border-bottom:$border-default;
+        padding:1rem 0;
         .nav-item  {
             display:block;
             text-align: center;
             .nav-link {
+                font-family: $headings-font-family;
+                color:$brand-primary;
                 display:inline-block;
+                &:hover {
+                    color:darken($brand-primary,10%);
+                }
+                &:first-child{
+                    padding-left:0;
+                }
             }
         }
+    }
+    .container:last-child {
+        padding-bottom:4.5rem;
     }
 }
 
 
 @include media-breakpoint-up(md) {
     .nav {
+        
         .nav-item {
             float:left;
+
             .nav-link {
                 padding:0.5em 0.5em;
+            }
+            .nav-link:first-child{
+                padding-left:0;
             }
         }
     }
