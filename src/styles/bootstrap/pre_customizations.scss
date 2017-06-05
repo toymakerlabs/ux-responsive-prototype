@@ -1,1 +1,12 @@
+
+
+$font-family-sans-serif:  "OpenSans-Light", "Helvetica Neue", Helvetica, Arial;
+
+$fonts-url-path: '../fonts';
+
+@font-face {
+  font-family: 'OpenSans-Light';
+  src: url('#{$fonts-url-path}/OpenSans-Light-webfont.ttf') format('truetype');
+}
+
 $brand-primary:darken(#c90505, 6.5%); // #337ab7

@@ -25,11 +25,11 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'url-loader?limit=10000',
-            },{
+                use: 'url-loader?limit=10000&name=./fonts/[name].[ext]',
+            }, {
                 test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-                use: 'file-loader',
-            },{
+                use: 'file-loader?name=./fonts/[name].[ext]',
+            }, {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
