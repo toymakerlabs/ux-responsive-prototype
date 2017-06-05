@@ -134,6 +134,12 @@ gulp.task('images', (cb) => {
         cb();
 });
 
+// gulp.task('fonts', function() {
+//     return gulp.src([
+//                     './src/fonts/fontawesome-webfont.*'])
+//             .pipe(gulp.dest('dist/fonts/'));
+// });
+
 gulp.task('images:dev', function(cb) {
    gulp.src('./src/images/*')
    .pipe(gulp.dest('./dist/images'));
