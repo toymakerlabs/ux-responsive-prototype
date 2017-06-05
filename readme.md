@@ -4,8 +4,10 @@ This project uses a combination of build tools to streamline front-end prototypi
 Webpack2 runs alongside gulp via a middleware component and builds the front-end javascript and SCSS. Webpack HOT module reloading rebuilds the front-end on changes. Boostrap loader gives tight control over the boostrap modules that are loaded into the project. Additionally, webpack provides excellent  
 
 ### Compiling
-1. `npm install` install dependencies using NPM from package.json
+1. `git clone https://github.com/toymakerlabs/ux-responsive-prototype.git`
 
-2. `gulp  develop` initiates the gulp dev task, which starts webpack dev server and compiles the markup, and copies imaages to the dist/ directory.
+2. `npm install` install dependencies using NPM from package.json
 
-3. `gulp production` runs the production gulp and wepback config. The end result is a compressed version in the dist/ directory.
+3. `gulp  develop` initiates the gulp dev task, which starts webpack dev server and compiles the markup, and copies imaages to the dist/ directory. Browse to http://localhost:8000/ to view.
+
+4. `gulp production` runs the production gulp and wepback config. The end result is a compressed version in the dist/ directory.
