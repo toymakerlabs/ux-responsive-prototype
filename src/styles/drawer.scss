@@ -27,7 +27,9 @@
     }
     .nav-item {
         display:block!important;
-
+        .nav-link {
+            padding:0.5rem 0;
+        }
         .social {
             border-top:$border-default;
             margin-top:1rem;
