@@ -4,7 +4,7 @@
     height:100%;
     width:$sidebar-width;
 
-    background: rgba(0,0,0,0.6);
+    background: $sidebar-background;
     overflow-y: scroll;
     -webkit-overflow-scrolling:touch;
 
@@ -21,9 +21,27 @@
     &.right.open {
         right:0;
     }
-
+    .menu {
+        margin:0 0 0 15px;
+        float:left;
+    }
     .nav-item {
         display:block!important;
+
+        .social {
+            border-top:$border-default;
+            margin-top:1rem;
+            padding: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            width:($sidebar-width - 30);
+            .btn-sm {
+                font-size: 1.75rem;
+                width:2.75rem;
+            }
+        }
+
+
     }
 
     .nav-item.dropdown {
@@ -34,7 +52,11 @@
     height:100%;
     color:white;
 
-    #drawer-close {
+    > button {
+        padding:0.75rem 1rem;
+        line-height:1em;
+        font-size:1em;
+        margin:0.5rem 1rem 0;
         float:right;
     }
 }
