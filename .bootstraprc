@@ -108,9 +108,9 @@ styles:
 
   # Components w/ JavaScript
   carousel: true
-  modal: true
-  popover: true
-  tooltip: true
+  modal: false
+  popover: false
+  tooltip: false
 
   # Utility classes
   utilities: true
@@ -120,11 +120,11 @@ scripts:
   alert: true
   button: true
   carousel: true
-  collapse: true
+  collapse: false
   dropdown: true
-  modal: true
-  popover: true
-  scrollspy: true
+  modal: false
+  popover: false
+  scrollspy: false
   tab: true
-  tooltip: true
+  tooltip: false
   util: true

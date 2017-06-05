@@ -128,7 +128,7 @@ gulp.task('images', (cb) => {
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: false}),
-            imagemin.optipng({optimizationLevel: 6})
+            imagemin.optipng({optimizationLevel: 7})
         ]))
         .pipe(gulp.dest('./dist/images'));
         cb();
