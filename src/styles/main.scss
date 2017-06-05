@@ -87,6 +87,11 @@ body {
 
 }
 
+button, .btn:focus {
+  outline: none!important;
+  box-shadow: none;
+}
+
 
 blockquote {
     position: relative;
