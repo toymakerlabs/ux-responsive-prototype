@@ -41,6 +41,12 @@
     transform:translate3d(260px,0,0)
 }
 
+.dropdown-menu {
+    background-clip:border-box;
+    border:0;
+    border-bottom:$border-thick;
+}
+
 
 @include media-breakpoint-up(md) {
     .navbar {

@@ -11,7 +11,11 @@
         transform:translate3d(0,-70px,0);
         top:0;
         width:100%;
+
         .navbar {
+            background-color:$nav-background;
+            padding:0 1rem 1rem;
+            border-bottom:$border-thick;
             .form-inline {
                 width:100%;
                 flex-flow:row;
@@ -24,7 +28,7 @@
         }
     }
     &.open {
-        height: 4.5rem;
+        height: 6rem;
         .search-inner {
             transform:translate3d(0,0,0);
         }

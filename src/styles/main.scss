@@ -61,6 +61,15 @@ body {
     width:100%;
 }
 
+.image-inline.pull-left {
+    padding:0 1rem 0rem 0;
+    box-sizing: border-box;
+}
+.image-inline.pull-right {
+    padding:0 0rem 1rem 1rem;
+    box-sizing: border-box;
+}
+
 .container-fluid.jumbo {
     padding:0;
     .row {
@@ -78,6 +87,28 @@ body {
 
 }
 
+
+blockquote {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 1.8rem 0 2.1rem;
+    quotes: " \f10d " " \f10e " ;
+    :before{
+        position: absolute;
+        left:0;
+        content:open-quote;
+        font-family:"FontAwesome";
+    }
+    :after{
+        position: absolute;
+        right:0;
+        content:close-quote;
+        font-family:"FontAwesome";
+    }
+    h2 {
+        line-height: 1.2;
+    }
+}
 @include media-breakpoint-up(md) {
     .image-inline{
         width:50%;
