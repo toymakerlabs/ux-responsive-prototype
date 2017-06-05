@@ -3,47 +3,81 @@
     top:100%;
     right:0;
     width:100%;
-    z-index: 1040;
+    height: 4.5rem;
+    overflow: hidden;
+
     .search-inner {
-        .form-inline {
-            flex-direction:row-reverse;
-        }
+        position: absolute;
+        transform:translate3d(0,-70px,0);
+        top:0;
+        width:100%;
         .navbar {
-            align-items: flex-end;
-        }
-    }
-}
-
-@include media-breakpoint-up(sm) {
-
-    .searchbar {
-        .search-inner {
             .form-inline {
-                flex-direction: row;
-            }
-        }
-    }
-
-}
-
-
-@include media-breakpoint-up(md) {
-    .searchbar {
-        width:50%;
-        .search-inner {
-            .navbar {
-
-
-                .form-inline {
-                    width:100%;
-                    flex-flow:row;
-                    align-items: flex-start;
-                    justify-content: space-between;
-                    input {
-                        flex-grow:1;
-                    }
+                width:100%;
+                flex-flow:row;
+                align-items: flex-start;
+                justify-content: space-between;
+                input {
+                    flex-grow:1;
                 }
             }
         }
+    }
+    &.open {
+        .search-inner {
+            transform:translate3d(0,0,0);
+        }
+    }
+}
+// .searchbar {
+//     position: absolute;
+//     top:100%;
+//     right:0;
+//     width:100%;
+//     height:4.5rem;
+//     overflow: hidden;
+//
+//     .search-inner {
+//         position: absolute;
+//         transform:translate3d(0,-70px,0);
+//         width:100%;
+//         .form-inline {
+//             flex-direction:row-reverse;
+//         }
+//         .navbar {
+//             align-items: flex-end;
+//         }
+//     }
+//
+//     &.open {
+//         .search-inner {
+//             transform:translate3d(0,0,0);
+//         }
+//     }
+//
+//
+// }
+
+// @include media-breakpoint-up(sm) {
+//
+//     .searchbar {
+//         .search-inner {
+//             .form-inline {
+//                 flex-direction: row;
+//             }
+//         }
+//     }
+//
+// }
+
+
+@include media-breakpoint-up(md) {
+
+    .searchbar {
+        width:50%;
+        .search-inner {
+
+        }
+
     }
 }

@@ -7,6 +7,8 @@ export default function navigation() {
 	const nav = $("#main-nav");
 	const page = $("#page");
 	const drawer = $("#mobile-nav");
+	const search_button = $("#search-button");
+	const search = $("#search");
 
 	button.on("click",function(e){
 		e.preventDefault();
@@ -25,6 +27,13 @@ export default function navigation() {
 		nav.removeClass("open");
 		page.removeClass("open");
 		drawer.removeClass("open");
+	})
+
+	search_button.on("click",function(e){
+		console.log("clicked");
+		e.preventDefault();
+		e.stopPropagation();
+		search.toggleClass('open');
 	})
 
 }
