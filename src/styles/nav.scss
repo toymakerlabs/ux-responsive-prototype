@@ -21,6 +21,7 @@
 
 .navbar.main-nav {
     transform:translate3d(0,0,0);
+    transition:transform 0.3s $bezier;
     background-color:$nav-background;
     border-bottom:2px solid $brand-primary;
     font-family: $headings-font-family;
@@ -81,7 +82,8 @@
 }
 
 .navbar.open {
-    transform:translate3d(260px,0,0)
+    transform:translate3d($sidebar-width,0,0);
+
 }
 
 

@@ -3,9 +3,12 @@
 footer {
     background:$nav-background;
     padding-top:1rem;
-border-top:2px solid $brand-primary;
+    border-top:2px solid $brand-primary;
     p {
         color:$main-text-color;
+    }
+    .container {
+        padding-bottom:4.5rem;
     }
     .nav {
         display: block;
@@ -28,9 +31,7 @@ border-top:2px solid $brand-primary;
             }
         }
     }
-    .container:last-child {
-        padding-bottom:4.5rem;
-    }
+
 }
 
 

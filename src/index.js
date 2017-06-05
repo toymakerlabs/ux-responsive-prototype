@@ -10,18 +10,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 $(document).ready(function(){
     navigation();
-    console.log("jquery here")
+    console.log("jquery here");
+
+    $(window).scroll(function(){
+        var top = $(window).scrollTop();
+        var height = $(window).height();
+        var t_height = $(document).height();
+        console.log(top+(height/2));
+
+        $("#page").css({"perspective-origin":"50% " + (top+(height/2))+"px"})
+    })
+
 })
 
 
-$(window).scroll(function(){
-    var top = $(window).scrollTop();
-    var height = $(window).height();
-    var t_height = $(document).height();
-    console.log(top+(height/2));
-
-    $("#page").css({"perspective-origin":"50% " + (top+(height/2))+"px" })
-})
 
 
 

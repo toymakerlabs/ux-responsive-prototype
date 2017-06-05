@@ -24,6 +24,20 @@ body {
     color:#C9C9C9;
 }
 
+
+article {
+    h3 {
+        padding-bottom:0.25em;
+    }
+    p {
+        color:darken($main-text-color,20%);
+        line-height: 1.7;
+    }
+}
+
+.byline {
+    padding:0.5rem;
+}
 .row {
     margin-top:1em;
 }
@@ -40,13 +54,14 @@ body {
 
 .page {
     transform:translate3d(0,0,0);
-    perspective:1000;
-    -webkit-perspective:1000;
+    transition:transform 0.3s $bezier;
+    perspective:1000px;
+    -webkit-perspective:1000px;
     position: relative;
 }
 
 .page.open {
-    left:260px;
+    transform:translate3d($sidebar-width,0,0);
 }
 
 .buffer {
@@ -142,9 +157,7 @@ blockquote {
     }
 }
 
-.container:last-child {
-    padding-bottom:4.5rem;
-}
+
 
 
 @include media-breakpoint-up(md) {

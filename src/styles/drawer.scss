@@ -7,16 +7,18 @@
     background: $sidebar-background;
     overflow-y: scroll;
     -webkit-overflow-scrolling:touch;
+    transition:transform 0.3s $bezier;
 
     &.left {
         left:-$sidebar-width;
+        transform:translate3d(0,0,0);
     }
     &.right{
         right:-$sidebar-width;
     }
 
     &.left.open {
-        left:0;
+        transform:translate3d($sidebar-width,0,0);
     }
     &.right.open {
         right:0;

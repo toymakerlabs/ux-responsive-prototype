@@ -2,10 +2,18 @@
     margin-bottom:1rem;
 }
 .recommended {
+    padding-bottom:4.5rem;
     .list-group {
         width:100%;
 
         .list-group-item {
+            color:darken($main-text-color,22%);
+            background-color: lighten($nav-background,16%);
+            cursor: pointer;
+            &:hover {
+                background-color:lighten($nav-background,8%);
+                color:$main-text-color;
+            }
             span:first-child {
                 white-space: nowrap;
                 max-width: calc(100% - 2em);

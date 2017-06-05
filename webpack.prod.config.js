@@ -72,7 +72,7 @@ module.exports = {
                         {
                             loader: 'postcss-loader',
                             options: {
-                                plugins: () => [autoprefixer]
+                                plugins: () => [autoprefixer('last 5 versions')]
                             }
                         },
                         {
@@ -98,7 +98,7 @@ module.exports = {
 
     plugins: [
         new webpack.LoaderOptionsPlugin({
-            postcss: [autoprefixer('last 2 versions')]
+            postcss: [autoprefixer('last 5 versions')]
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
