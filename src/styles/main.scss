@@ -21,6 +21,7 @@ html,body{
 body {
     padding-top:4.5em;
     background:#000;
+    color:#C9C9C9;
 }
 
 .row {
@@ -48,6 +49,15 @@ body {
     left:260px;
 }
 
+.buffer {
+    padding:0.5rem;
+}
+.buffer-top{
+    padding-top:1.5rem;
+}
+.buffer-bottom{
+    padding-bottom:1.5rem;
+}
 
 .placeholder-image {
     background:#cccccc;
@@ -132,13 +142,36 @@ blockquote {
     }
 }
 
+.container:last-child {
+    padding-bottom:4.5rem;
+}
+
 
 @include media-breakpoint-up(md) {
+    .buffer {
+        padding:2rem;
+    }
+    .buffer-top{
+        padding-top:2rem;
+    }
+    .buffer-bottom{
+        padding-bottom:2rem;
+    }
     .image-inline{
         width:50%;
     }
 }
-
+@include media-breakpoint-up(lg) {
+    .buffer {
+        padding:3rem;
+    }
+    .buffer-top{
+        padding-top:3rem;
+    }
+    .buffer-bottom{
+        padding-bottom:3rem;
+    }
+}
 
 /*
 .main-wrapper {

@@ -3,7 +3,7 @@
     top:0;
     height:100%;
     width:$sidebar-width;
-
+    box-shadow: -8px 0px 8px rgba(0,0,0,0.25) inset;
     background: $sidebar-background;
     overflow-y: scroll;
     -webkit-overflow-scrolling:touch;

@@ -29,6 +29,7 @@ $fonts-url-path: '../fonts';
 }
 
 $font-family-sans-serif:  "open_sansregular", "Helvetica Neue", Helvetica, Arial;
+
 $headings-font-family:    "open_sanslight", "Helvetica Neue";
 
 $enable-rounded:false;
@@ -38,7 +39,11 @@ $brand-primary:darken(#c90505, 6.5%); // #337ab7
 $nav-background:rgba(0,0,0,0.96);
 
 $dropdown-bg: $nav-background;
+
+
 $component-active-bg:$nav-background;
+
+
 $dropdown-border:none;
 $dropdown-link-color:$brand-primary;
 $dropdown-link-hover-color:lighten($brand-primary,6.5%);
